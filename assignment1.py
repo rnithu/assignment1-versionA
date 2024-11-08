@@ -3,9 +3,9 @@
 '''
 OPS435 Assignment 1 - Summer 2023
 Program: assignment1.py 
-Author: "Student Name"
-The python code in this file (a1_[Student_id].py) is original work written by
-"Student Name". No code in this file is copied from any other source
+Author: "Nithurshan Raveendran"
+The python code in this file (a1_nraveendran5.py) is original work written by
+"Nithurshan Raveendran". No code in this file is copied from any other source
 except those provided by the course instructor, including any person,
 textbook, or on-line resource. I have not shared this python script
 with anyone or anything except for submission for grading. I understand
@@ -27,7 +27,12 @@ def day_of_week(year: int, month: int, date: int) -> str:
 
 def mon_max(month:int, year:int) -> int:
     "returns the maximum day for a given month. Includes leap year check"
-    ...
+    if month == 2: # February
+        return 29 if leap_year(year) else 28  # February has 29 days in a leap year, 28 otherwise
+    elif month in {4, 6, 9, 11}:
+        return 30  # April, June, September, November have 30 days
+    else:
+        return 31  # All other months have 31 days
 
 def after(date: str) -> str:
     '''
@@ -37,28 +42,38 @@ def after(date: str) -> str:
     This function takes care of the number of days in February for leap year.
     This fucntion has been tested to work for year after 1582
     '''
+
+    # Split the input date string into year, month, and day components.
     str_year, str_month, str_day = date.split('-')
+
+    # Convert these string components to integers for calculations.
     year = int(str_year)
     month = int(str_month)
     day = int(str_day)
+
+    # Set the next day by incrementing the current day by 1
     tmp_day = day + 1  # next day
 
+    # Check if the temporary day exceeds the maximum days in the month.
     if tmp_day > mon_max(month, year):
-        to_day = tmp_day % mon_max(month, year)  # if tmp_day > this month's max, reset to 1 
+        # If it does, reset the day to 1 and move to the next month.
+        to_day = 1
         tmp_month = month + 1
     else:
+        # Otherwise, keep the incremented day and same month.
         to_day = tmp_day
-        tmp_month = month + 0
+        tmp_month = month
 
+    # Check if the month exceeds 12, meaning we need to move to the next year.
     if tmp_month > 12:
-        to_month = 1
-        year = year + 1
+        to_month = 1 # Reset the month to January
+        year += 1 # Increment the year
     else:
-        to_month = tmp_month + 0
+        to_month = tmp_month
 
+    # Format the result as YYYY-MM-DD with zero-padding for single-digit months/days.
     next_date = f"{year}-{to_month:02}-{to_day:02}"
-
-    return next_date
+    return next_date # Return the calculated next date
 
 
 def usage():
@@ -67,8 +82,9 @@ def usage():
 
 
 def leap_year(year: int) -> bool:
-    "return True if the year is a leap year"
-    ...
+    """Return True if the year is a leap year, False otherwise."""
+    return (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
+
 
 def valid_date(date: str) -> bool:
     "check validity of date and return True if valid"
