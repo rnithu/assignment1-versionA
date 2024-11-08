@@ -78,7 +78,9 @@ def after(date: str) -> str:
 
 def usage():
     "Print a usage message to the user"
-    ...
+    print("Usage: python3 assignment1.py <start_date> <end_date>")
+    print("Dates must be in YYYY-MM-DD format.")
+    print("This program calculates the number of weekend days (Saturdays and Sundays) between two dates.")
 
 
 def leap_year(year: int) -> bool:
