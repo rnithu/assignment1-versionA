@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 '''
-OPS435 Assignment 1 - Summer 2023
+OPS435 Assignment 1 - Fall 2024
 Program: assignment1.py 
 Author: "Nithurshan Raveendran"
 The python code in this file (a1_nraveendran5.py) is original work written by
