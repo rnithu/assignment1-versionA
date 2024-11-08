@@ -40,7 +40,7 @@ def day_of_week(year: int, month: int, date: int) -> str:
     if month < 3:
         year -= 1
 
-    # Calculate day of the week
+    # Calculation for day of the week
     num = (year + year//4 - year//100 + year//400 + offset[month] + date) % 7
     return days[num]
 
