@@ -17,10 +17,30 @@ import sys
 
 def day_of_week(year: int, month: int, date: int) -> str:
     "Based on the algorithm by Tomohiko Sakamoto"
+    """Calculate the day of the week for a given date.
+
+    This function uses Tomohiko Sakamoto's algorithm to calculate the day
+    of the week for a given date, represented by year, month, and date.
+
+    Args:
+        year (int): The year of the date.
+        month (int): The month of the date.
+        date (int): The day of the date.
+
+    Returns:
+        str: A string indicating the day of the week, such as 'mon' or 'sun'.
+    """
+    # List of day names corresponding to calculated values
     days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] 
+
+    # Offsets for each month in Tomohiko Sakamoto's algorithm
     offset = {1:0, 2:3, 3:2, 4:5, 5:0, 6:3, 7:5, 8:1, 9:4, 10:6, 11:2, 12:4}
+
+    # Adjust year for January and February in leap years
     if month < 3:
         year -= 1
+
+    # Calculate day of the week
     num = (year + year//4 - year//100 + year//400 + offset[month] + date) % 7
     return days[num]
 
@@ -134,3 +154,25 @@ def day_count(start_date: str, stop_date: str) -> int:
     return weekend_count
 
 if __name__ == "__main__":
+    # Check if correct number of arguments is provided
+    if len(sys.argv) != 3:
+        usage()
+        sys.exit(1)
+    
+    start_date, stop_date = sys.argv[1], sys.argv[2]
+    
+    # Validate the start and stop dates
+    if not (valid_date(start_date) and valid_date(stop_date)):
+        print("Error: One or both dates are invalid.")
+        usage()
+        sys.exit(1)
+    
+    # Ensure start_date is less than or equal to stop_date
+    if start_date > stop_date:
+        start_date, stop_date = stop_date, start_date
+    
+    # Calculate the number of weekend days
+    weekends = day_count(start_date, stop_date)
+    
+    # Print the output in the expected format
+    print(f"The period between {start_date} and {stop_date} includes {weekends} weekend days.")
