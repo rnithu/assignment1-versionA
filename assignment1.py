@@ -134,4 +134,3 @@ def day_count(start_date: str, stop_date: str) -> int:
     return weekend_count
 
 if __name__ == "__main__":
-    ...
