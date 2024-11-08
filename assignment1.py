@@ -90,7 +90,26 @@ def leap_year(year: int) -> bool:
 
 def valid_date(date: str) -> bool:
     "check validity of date and return True if valid"
-    ...
+    # Check if date string matches the YYYY-MM-DD format exactly
+    if len(date) != 10 or date[4] != '-' or date[7] != '-':
+        return False
+
+    try:
+        # Split the date and convert each part to an integer
+        year, month, day = map(int, date.split('-'))
+        
+        # Check if the month is within the valid range of 1 to 12
+        if not (1 <= month <= 12):
+            return False
+        
+        # Check if the day is within the valid range for the specific month and year
+        if not (1 <= day <= mon_max(month, year)):
+            return False
+
+        return True # All checks passed; the date is valid
+    except (ValueError, TypeError): 
+        # Return False if date format is incorrect or conversion fails
+        return False
 
 def day_count(start_date: str, stop_date: str) -> int:
     "Loops through range of dates, and returns number of weekend days"
